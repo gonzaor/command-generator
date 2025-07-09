@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Command Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="terminal-header">
+            <span style="color: var(--muted-color);">command-generator@gonzaor:~</span>
+            <div style="margin-left: auto;">
+                <span class="status-indicator"></span>
+                <span style="color: var(--green); font-size: 0.9rem;">ACTIVE</span>
+            </div>
+        </div>
+        
+        <div class="terminal-body">
+            <h1 class="form-title">Security Command Generator</h1>
+            
+            <form id="commandForm">
+                <div class="form-group">
+                    <label for="toolSelect">Select a tool:</label>
+                    <select id="toolSelect" name="tool" required>
+                        <option value="">-- Select a tool --</option>
+                        <option value="nmap">Nmap - Network Mapper</option>
+                        <option value="hydra">Hydra - Password Brute Forcer</option>
+                        <option value="john">John the Ripper - Password Cracker</option>
+                    </select>
+                    <div class="tool-description" id="toolDescription"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="targetInput">Target/Objective:</label>
+                    <input type="text" id="targetInput" name="target" placeholder="Ej: 192.168.1.1, example.com, /path/to/file">
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Generate Command
+                </button>
+            </form>
+
+            <div class="command-output" id="commandOutput"></div>
+        </div>
+    </div>
+
+    <div class="documentation-section">
+        <h2 class="docs-title">Tool Documentation</h2>
+        
+        <div class="docs-grid">
+            <div class="doc-card">
+                <h3><a href="https://nmap.org/docs.html">Nmap - Network Mapper</a></h3>
+            </div>
+
+            <div class="doc-card">
+                <h3><a href="https://github.com/vanhauser-thc/thc-hydra">Hydra - Password Brute Forcer</a></h3>
+            </div>
+
+            <div class="doc-card">
+                <h3><a href="https://github.com/openwall/john/tree/bleeding-jumbo/doc">John the Ripper - Password Cracker</a></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="disclaimer-footer">
+        <div class="disclaimer-text">
+            <strong>Disclaimer:</strong> For educational purposes only. I am not responsible for the misuse of this tool.
+        </div>
+        <div class="developer-info">
+            Desarrollado por <a href="https://github.com/gonzaor" target="_blank">@gonzaor</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const toolSelect = document.getElementById('toolSelect');
+            const commandForm = document.getElementById('commandForm');
+            const commandOutput = document.getElementById('commandOutput');
+
+            commandForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const tool = toolSelect.value;
+                const target = document.getElementById('targetInput').value;
+                
+                if (!tool) {
+                    alert('Please select a tool');
+                    return;
+                }
+
+                generateCommand(tool, target);
+            });
+        });
+
+        function generateCommand(tool, target) {
+            const commandOutput = document.getElementById('commandOutput');
+            
+            commandOutput.style.display = 'block';
+            commandOutput.textContent = 'Loading...';
+            
+            setTimeout(function() {
+                commandOutput.textContent = `Command for ${tool} generated:\n\n# Here will go the specific command for ${tool}\n# Target: ${target || 'Not specified'}\n\n// Note: Implement specific function for ${tool}`;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
